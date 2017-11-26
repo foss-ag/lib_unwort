@@ -50,7 +50,7 @@ impl FromStr for EnglishWord {
 	type Err = ();
 
 	fn from_str(s: &str) -> Result<EnglishWord, ()> {
-		let mut s = s.trim().to_string();
+		let s = s.trim().to_string();
 
 		// There ought to be no punctuation inside a word, that would make it
 		// into two or any whitespace for that matter.

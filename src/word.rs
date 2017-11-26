@@ -16,10 +16,16 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 // USA
 
-#![warn(missing_docs)]
+use std::str::FromStr;
+use std::ops::Deref;
 
-pub mod naive_dictionary;
-pub mod word;
-mod parsing;
+pub enum WordType {
+	Noun,
+	Adjective,
+	Adverb,
+	Verb
+}
 
-pub mod english;
+pub trait Word: FromStr<Err=()> + Deref<Target=String> {
+	fn typ(&self) -> Option<WordType>;
+}

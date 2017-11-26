@@ -16,11 +16,14 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 // USA
 
+//! Base module for all operations that are specific to English words ONLY.
+
 use word::*;
 use std::str::FromStr;
 use std::ops::Deref;
 use parsing;
 
+/// Represents a single English word
 pub struct EnglishWord {
 	raw: String
 }

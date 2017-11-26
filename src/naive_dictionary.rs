@@ -16,6 +16,8 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 // USA
 
+//! NaiveDictionary. For sometimes you just want your raw dictionary data.
+
 use word::Word;
 use std::path::{Path, PathBuf};
 

@@ -16,17 +16,24 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 // USA
 
+//! An English Dictionary, once loaded can be used to check for any word that
+//! comes up if it is available in the english language. It should also be able
+//! to create any word that might be able to exist in the English language and
+//! check against that.
+
 use english::word::EnglishWord;
 use naive_dictionary::NaiveDictionary;
 
 use std::io::Result as IOResult;
 
-
+/// A smart dictionary that follows the rules of English
 pub struct Dictionary {
+	/// The dictionary this is based off of containing only the raw words
 	base: NaiveDictionary<EnglishWord>
 }
 
 impl Dictionary {
+	/// Create a new English Dictionary
 	pub fn new() -> IOResult<Dictionary> {
 		// Open a new Dictionary in English mode.
 		let base = NaiveDictionary::new("dict/english")?;
@@ -36,7 +43,8 @@ impl Dictionary {
 		})
 	}
 
-	fn has(&self, word: EnglishWord) -> bool {
+	/// Check if the Dictionary contains this word or any of its derivates
+	pub fn has(&self, word: EnglishWord) -> bool {
 		false
 	}
 }

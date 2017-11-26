@@ -16,6 +16,13 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 // USA
 
+//! The unwort library aims to be an a little cleverer dictionary, that tries
+//! to take into account the simplerer particularities of certain languages and
+//! avoid being a nuisance rather than a bane that you have to fight every step.
+//! Realising that it will most certainly never be possible to write the
+//! perfect spellchecker, it is a benevolent spellchecker, which should prefer
+//! not to mark an error that is one rather than marking an error that is not.
+
 #![warn(missing_docs)]
 
 pub mod naive_dictionary;

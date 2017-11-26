@@ -18,21 +18,22 @@
 
 //! Base module for all operations that are specific to English words ONLY.
 
-use word::*;
+use word::Word as Super;
+use word::WordType;
 use std::str::FromStr;
 use std::ops::Deref;
 use parsing;
 
 /// Represents a single English word
-pub struct EnglishWord {
+pub struct Word {
 	raw: String
 }
 
-impl Word for EnglishWord {
+impl Super for Word {
 	fn typ(&self) -> Option<WordType> { None }
 }
 
-impl Deref for EnglishWord {
+impl Deref for Word {
 	type Target = String;
 
 	fn deref(&self) -> &String {
@@ -40,16 +41,16 @@ impl Deref for EnglishWord {
 	}
 }
 
-impl ToString for EnglishWord {
+impl ToString for Word {
 	fn to_string(&self) -> String {
 		self.raw.clone()
 	}
 }
 
-impl FromStr for EnglishWord {
+impl FromStr for Word {
 	type Err = ();
 
-	fn from_str(s: &str) -> Result<EnglishWord, ()> {
+	fn from_str(s: &str) -> Result<Word, ()> {
 		let s = s.trim().to_string();
 
 		// There ought to be no punctuation inside a word, that would make it
@@ -57,7 +58,7 @@ impl FromStr for EnglishWord {
 		if parsing::has_punctuation(&s) { return Err(()); }
 		if parsing::has_whitespace(&s) { return Err(()); }
 
-		Ok(EnglishWord {
+		Ok(Word {
 			raw: s
 		})
 	}

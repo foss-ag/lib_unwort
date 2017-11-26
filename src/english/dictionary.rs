@@ -21,7 +21,7 @@
 //! to create any word that might be able to exist in the English language and
 //! check against that.
 
-use english::word::EnglishWord;
+use english::word::Word;
 use naive_dictionary::NaiveDictionary;
 
 use std::io::Result as IOResult;
@@ -29,7 +29,7 @@ use std::io::Result as IOResult;
 /// A smart dictionary that follows the rules of English
 pub struct Dictionary {
 	/// The dictionary this is based off of containing only the raw words
-	base: NaiveDictionary<EnglishWord>
+	base: NaiveDictionary<Word>
 }
 
 impl Dictionary {
@@ -44,7 +44,7 @@ impl Dictionary {
 	}
 
 	/// Check if the Dictionary contains this word or any of its derivates
-	pub fn has(&self, word: EnglishWord) -> bool {
+	pub fn has(&self, word: Word) -> bool {
 		self.base.has(word)
 	}
 }

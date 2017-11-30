@@ -29,4 +29,4 @@ pub mod naive_dictionary;
 pub mod word;
 mod parsing;
 
-pub mod english;
+pub mod german;

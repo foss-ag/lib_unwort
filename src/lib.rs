@@ -26,7 +26,6 @@
 #![warn(missing_docs)]
 
 pub mod naive_dictionary;
-pub mod word;
 mod parsing;
 
 pub mod german;

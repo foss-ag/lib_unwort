@@ -18,8 +18,8 @@
 
 //! NaiveDictionary. For sometimes you just want your raw dictionary data.
 
-use word::Word;
 use std::path::{Path, PathBuf};
+use std::str::FromStr;
 
 use std::io::Result as IOResult;
 
@@ -29,12 +29,12 @@ use std::io::prelude::*;
 
 /// Dictionary that does not do any inflections or other fancy stuff, but
 /// rather used to compare simply to a database of known base words.
-pub struct NaiveDictionary<W: Word> {
+pub struct NaiveDictionary<W: Ord + FromStr> {
 	file: PathBuf,
 	cache: Vec<W>
 }
 
-impl<W: Word> NaiveDictionary<W> {
+impl<W: Ord + FromStr> NaiveDictionary<W> {
 	/// Create a new NaiveDictionary from the dictionary file provided.
 	/// A NaiveDictionary file is a file that contains words, possibly the
 	/// most basic version of them seperated by newlines.
@@ -60,7 +60,7 @@ impl<W: Word> NaiveDictionary<W> {
 		// is O(n) anyway.
 		// The function provided is necessary to take advantage of the
 		// Deref<String> functionality.
-		cache.sort_unstable_by(|a, b| { a.cmp(b) });
+		cache.sort_unstable();
 
 		Ok(NaiveDictionary {
 			file: dict_file.as_ref().to_path_buf(),
@@ -75,7 +75,7 @@ impl<W: Word> NaiveDictionary<W> {
 
 	/// Checks if the word is inside of this dictionary. Does not check for
 	/// derivates, since this Dictionary is naive.
-	pub fn has(&self, word: W) -> bool {
-		self.cache.binary_search_by(|p| { p.cmp(&word) }).is_ok()
+	pub fn contains(&self, word: W) -> bool {
+		self.cache.binary_search(&word).is_ok()
 	}
 }

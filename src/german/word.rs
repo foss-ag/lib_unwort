@@ -18,13 +18,22 @@
 
 //! Base module for all operations that are specific to German words ONLY.
 
-use word::Word as Super;
-use word::WordType;
 use std::str::FromStr;
 use std::ops::Deref;
 use parsing;
 
+/// Type of a German word, in case the type is known
+#[allow(missing_docs)]
+pub enum WordType {
+	Noun,
+	ProperNoun,
+	Adjective,
+	Adverb,
+	Verb
+}
+
 /// Represents a single German word
+#[derive(PartialEq, Eq, PartialOrd, Ord)]
 pub struct Word {
 	raw: String
 }
@@ -39,10 +48,6 @@ impl Word {
 
 		Some(Word::from_str(&raw_together).unwrap())
 	}
-}
-
-impl Super for Word {
-	fn typ(&self) -> Option<WordType> { None }
 }
 
 impl Deref for Word {

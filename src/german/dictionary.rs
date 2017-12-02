@@ -44,7 +44,7 @@ impl Dictionary {
 	}
 
 	/// Check if the Dictionary contains this word or any of its derivates
-	pub fn has(&self, word: Word) -> bool {
-		self.base.has(word)
+	pub fn contains(&self, word: Word) -> bool {
+		self.base.contains(word)
 	}
 }

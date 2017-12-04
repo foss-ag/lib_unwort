@@ -43,6 +43,9 @@ impl Dictionary {
 		})
 	}
 
+	/// Adds the word to the dictionary. The word must be in it
+	pub fn add(&self, word: &Word)
+
 	/// Check if the Dictionary contains this word or any of its derivates
 	pub fn contains(&self, word: Word) -> bool {
 		self.base.contains(word)

@@ -16,8 +16,8 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 // USA
 
-//! The English language module contains all elements that are required to
-//! check english text.
+//! The German language module contains all elements that are required to
+//! check German text.
 
 pub mod dictionary;
 

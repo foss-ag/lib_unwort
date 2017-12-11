@@ -1,6 +1,6 @@
 [package]
-name = "lib_unwort"
-version = "0.1.0"
+name = "unwort"
+version = "0.1.1"
 authors = ["Arne Dussin <arne.dussin@tu-dortmund.de>"]
 
 [dependencies]

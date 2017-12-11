@@ -25,7 +25,6 @@
 
 #![warn(missing_docs)]
 
-pub mod naive_dictionary;
-mod parsing;
+extern crate rust_stemmers;
 
 pub mod german;

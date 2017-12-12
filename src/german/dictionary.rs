@@ -21,6 +21,8 @@
 //! to create any word that might be able to exist in the German language and
 //! check against that.
 
+use dictionary::Dictionary as Super;
+
 use rust_stemmers::{Algorithm, Stemmer};
 
 use std::path::{Path, PathBuf};
@@ -60,19 +62,6 @@ impl Dictionary {
 		})
 	}
 
-	/// Add the word to the dictionary. Returns true if it is a new word, false
-	/// otherwise.
-	pub fn add(&mut self, word: &str) -> bool {
-		// Reduce the word to it's stem.
-		let stem = self.stemmer.stem(&word.trim().to_string()).into_owned();
-		self.known.insert(stem)
-	}
-
-	/// Check if the Dictionary contains this word or any of its derivates
-	pub fn contains(&self, word: &str) -> bool {
-		self.known.contains(&self.stemmer.stem(word).into_owned().to_string())
-	}
-
 	/// Save the dictionary file back to were it was loaded from.
 	// TODO: This is a bit stupid. I don't like multiple instances of
 	// the same dictionary being loaded and then saving into the same file again
@@ -88,6 +77,18 @@ impl Dictionary {
 		writer.flush()?;
 
 		Ok(())
+	}
+}
+
+impl Super for Dictionary {
+	fn add<W: AsRef<str>>(&mut self, word: W) -> bool {
+		// Reduce the word to it's stem.
+		let stem = self.stemmer.stem(word.as_ref().trim()).into_owned();
+		self.known.insert(stem)
+	}
+
+	fn contains<W: AsRef<str>>(&self, word: W) -> bool {
+		self.known.contains(&self.stemmer.stem(word.as_ref()).into_owned().to_string())
 	}
 }
 

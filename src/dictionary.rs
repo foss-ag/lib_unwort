@@ -5,29 +5,26 @@
 // modify it under the terms of the GNU Lesser General Public
 // License as published by the Free Software Foundation; either
 // version 2.1 of the License, or (at your option) any later version.
-// 
+//
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 // Lesser General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 // USA
 
-//! The unwort library aims to be an a little cleverer dictionary, that tries
-//! to take into account the simplerer particularities of certain languages and
-//! avoid being a nuisance rather than a bane that you have to fight every step.
-//! Realising that it will most certainly never be possible to write the
-//! perfect spellchecker, it is a benevolent spellchecker, which should prefer
-//! not to mark an error that is one rather than marking an error that is not.
+//! Base for a Smart dictionary of any language. Language specific
+//! functionalities are not covered.
 
-#![warn(missing_docs)]
-
-extern crate rust_stemmers;
-
-pub mod dictionary;
-pub mod german;
-
-pub use dictionary::*;
+/// The base trait for all dictionaries.
+pub trait Dictionary {
+	/// Add the word to the dictionary. Returns true if it is a new word, false
+	/// otherwise.
+	fn add<W: AsRef<str>>(&mut self, word: W) -> bool;
+	
+	/// Check if the Dictionary contains the word.
+	fn contains<W: AsRef<str>>(&self, word: W) -> bool;
+}

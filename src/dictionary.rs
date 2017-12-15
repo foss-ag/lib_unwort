@@ -23,8 +23,8 @@
 pub trait Dictionary {
 	/// Add the word to the dictionary. Returns true if it is a new word, false
 	/// otherwise.
-	fn add<W: AsRef<str>>(&mut self, word: W) -> bool;
+	fn add(&mut self, word: &str) -> bool;
 	
 	/// Check if the Dictionary contains the word.
-	fn contains<W: AsRef<str>>(&self, word: W) -> bool;
+	fn contains(&self, word: &str) -> bool;
 }

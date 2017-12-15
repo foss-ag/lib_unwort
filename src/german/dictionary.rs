@@ -81,14 +81,14 @@ impl Dictionary {
 }
 
 impl Super for Dictionary {
-	fn add<W: AsRef<str>>(&mut self, word: W) -> bool {
+	fn add(&mut self, word: &str) -> bool {
 		// Reduce the word to it's stem.
-		let stem = self.stemmer.stem(word.as_ref().trim()).into_owned();
+		let stem = self.stemmer.stem(word.trim()).into_owned();
 		self.known.insert(stem)
 	}
 
-	fn contains<W: AsRef<str>>(&self, word: W) -> bool {
-		self.known.contains(&self.stemmer.stem(word.as_ref()).into_owned().to_string())
+	fn contains(&self, word: &str) -> bool {
+		self.known.contains(&self.stemmer.stem(word).into_owned().to_string())
 	}
 }
 

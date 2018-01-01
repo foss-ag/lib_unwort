@@ -24,7 +24,7 @@
 use rust_stemmers::{Algorithm, Stemmer};
 
 use std::path::{Path, PathBuf};
-use std::fs::File;
+use std::fs::{File, OpenOptions};
 use std::io::{BufRead, BufReader, Write, BufWriter};
 
 use std::collections::HashSet;
@@ -44,7 +44,7 @@ impl Dictionary {
 	/// Create a new German Dictionary
 	pub fn new<P: AsRef<Path>>(dict_file: P) -> IOResult<Dictionary> {
 		// Open the base dictionary file and read it's contents into memory
-		let file = File::open(&dict_file)?;
+		let file = OpenOptions::new().read(true).create(true).open(&dict_file)?;
 		let reader = BufReader::new(file);
 
 		let mut known = HashSet::new();

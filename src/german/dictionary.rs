@@ -27,10 +27,9 @@ use rust_stemmers::{Algorithm, Stemmer};
 
 use std::path::{Path, PathBuf};
 use std::fs::File;
-use std::io::{BufRead, BufReader, Write, BufWriter};
+use std::io::{self, BufRead, BufReader, Write, BufWriter};
 
 use std::collections::HashSet;
-use std::io::Result as IOResult;
 
 /// A smart dictionary that follows the rules of German
 pub struct Dictionary {
@@ -44,16 +43,27 @@ pub struct Dictionary {
 
 impl Dictionary {
 	/// Create a new German Dictionary
-	pub fn new<P: AsRef<Path>>(dict_file: P) -> IOResult<Dictionary> {
-		// Open the base dictionary file and read it's contents into memory
-		let file = File::open(&dict_file)?;
-		let reader = BufReader::new(file);
+	pub fn new<P: AsRef<Path>>(dict_file: P) -> io::Result<Dictionary> {
+		// Look if the dictionary file already exists. If that is the case,
+		// read its contents into memory. This does not bother with creating
+		// a new file if none exists, since that is covered in `save()`.
+		let known = match File::open(&dict_file) {
+			Ok(f) => {
+				let reader = BufReader::new(f);
 
-		let mut known = HashSet::new();
-		for l in reader.lines() {
-			let l = l?;
-			known.insert(l.trim().to_string());
-		}
+				let mut known = HashSet::new();
+				for l in reader.lines() {
+					let l = l?;
+					known.insert(l.trim().to_string());
+				}
+
+				known
+			},
+			Err(e) => match e.kind() {
+				io::ErrorKind::NotFound => HashSet::new(),
+				_ => return Err(e)
+			}
+		};
 
 		Ok(Dictionary {
 			file: dict_file.as_ref().to_path_buf(),
@@ -65,12 +75,13 @@ impl Dictionary {
 	/// Save the dictionary file back to were it was loaded from.
 	// TODO: This is a bit stupid. I don't like multiple instances of
 	// the same dictionary being loaded and then saving into the same file again
-	pub fn save(&self) -> IOResult<()> {
-		let file = File::open(&self.file)?;
+	pub fn save(&self) -> io::Result<()> {
+		let file = File::create(&self.file)?;
 		let mut writer = BufWriter::new(file);
 
 		for ref k in &self.known {
 			writer.write(&k.as_bytes())?;
+			writer.write(b"\n")?;
 		}
 
 		// Check if the write was successful
@@ -97,5 +108,55 @@ impl Drop for Dictionary {
 		if self.save().is_err() {
 			println!("Failed to save dictionary file");
 		}
+	}
+}
+
+#[cfg(test)]
+mod test {
+	use super::*;
+	use std::fs;
+
+	#[test]
+	// Testing the dictionary in case there is no file existing yet and the
+	// dictionary is created from scratch.
+	fn new_file_case() {
+		let fname = "test_new_file_case_ger";
+
+		{
+			let mut dict = Dictionary::new(fname).expect("Dict should not care that there is no file");
+			dict.add("Guten");
+			dict.add("Morgen");
+
+			dict.save().expect("Could not write Dictionary file");
+		}
+
+		fs::remove_file(fname).expect("Could not clean up. Please manually remove test files");
+	}
+
+	#[test]
+	// If there is already a dictionary file, the contents must be read and
+	// new words added correctly without corrupting the old file.
+	fn existing_file_case() {
+		let fname = "test_existing_file_case_ger";
+
+		{
+			// Create an existing file with some contents.
+			let mut dict = Dictionary::new(fname).expect("Dict should not care that there is no file");
+			dict.add("Guten");
+			dict.add("Morgen");
+
+			dict.save().expect("Could not write Dictionary file");
+		}
+
+		{
+			// Now use the existing file to create a new dictionary and check if
+			// the contents are appreciated by it.
+			let mut dict = Dictionary::new(fname).expect("Could not create from existing file");
+
+			assert!(dict.contains("Guten"));
+			assert!(dict.contains("Morgen"));
+		}
+
+		fs::remove_file(fname).expect("Could not clean up. Please manually remove test files");
 	}
 }

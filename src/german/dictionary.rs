@@ -26,13 +26,8 @@ use dictionary::Dictionary as Super;
 use rust_stemmers::{Algorithm, Stemmer};
 
 use std::path::{Path, PathBuf};
-<<<<<<< HEAD
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, Write, BufWriter};
-=======
-use std::fs::{File, OpenOptions};
-use std::io::{BufRead, BufReader, Write, BufWriter};
->>>>>>> b2ec8e7e42c0c8cfc9ef96d42a43025b27a01a27
 
 use std::collections::HashSet;
 

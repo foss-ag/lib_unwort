@@ -19,5 +19,7 @@
 //! guesses where they may overlook it, since such would make it unusable.
 
 pub mod dictionary;
+pub mod word;
 
 pub use dictionary::*;
+pub use word::*;

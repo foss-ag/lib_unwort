@@ -1,0 +1,6 @@
+name = "Deutsch"
+definitions = "ger_def.toml"
+words = [
+	"gut",
+	"Morgen"
+]

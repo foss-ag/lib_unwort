@@ -6,6 +6,7 @@
 // The License may be obtained under http://www.d-fsl.org.
 
 #![warn(missing_docs)]
+#![allow(dead_code)]
 
 //! The unwort library aims to deliver a less frustrating experience with spell
 //! checking software, which more often than not acts rather stupidly when
@@ -18,8 +19,15 @@
 //! is easily caught by a native speaker of that language. It should not make
 //! guesses where they may overlook it, since such would make it unusable.
 
-pub mod dictionary;
-pub mod word;
+#[macro_use]
+extern crate serde_derive;
+extern crate toml;
 
-pub use dictionary::*;
-pub use word::*;
+pub mod is_dict;
+mod dict_config;
+pub mod definable;
+
+pub use is_dict::*;
+pub use definable::Definable;
+
+pub mod german;

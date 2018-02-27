@@ -5,6 +5,8 @@
 //
 // The License may be obtained under http://www.d-fsl.org.
 
+use std::str::FromStr;
+
 use definable::Definable;
 
 /// Representation of a German grammatical gender.
@@ -63,5 +65,38 @@ impl Definable for Word {
 
 	fn set_definition(&mut self, definition: &String) {
 		self.definition = Some(definition.clone());
+	}
+}
+
+impl ToString for Word {
+	fn to_string(&self) -> String {
+		let mut r = self.raw.clone();
+
+		if let Some(gender) = self.gender {
+			let g_str = match gender {
+				Gender::Masculine => "m",
+				Gender::Feminine => "f",
+				Gender::Neuter => "n",
+				Gender::None => "-"
+			};
+
+			r.push_str(format!(", {}", g_str));
+		}
+
+		r
+	}
+}
+
+#[derive(Debug)]
+pub enum FormatError {
+	UnexpectedToken(String),
+	InvalidArgument(String, String),
+}
+
+impl FromStr for Word {
+	type Err = FormatError;
+
+	fn from_str(s: &str) -> Result<Word, FormatError> {
+		
 	}
 }

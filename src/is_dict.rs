@@ -5,9 +5,6 @@
 //
 // The License may be obtained under http://www.d-fsl.org.
 
-use std::io;
-use std::path::Path;
-
 use definable::Definable;
 
 /// Trait describing the definitions of a base dictionary.
@@ -15,12 +12,6 @@ use definable::Definable;
 /// information and all general features, this must be made to suffice.
 pub trait IsDict {
 	type W: Definable;
-
-	/// Load a dictionary file from the path specified.
-	fn from_file(path: &Path) -> io::Result<Self> where Self: Sized;
-	/// Save the dictionary into a dictionary file. If the file already exists
-	/// it will be overwritten.
-	fn to_file(&self, path: &Path) -> io::Result<()>;
 
 	/// Check if the dictionary contains the word. If the word is not directly
 	/// contained, the language specific algorithm tries to find one or

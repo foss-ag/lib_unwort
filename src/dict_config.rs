@@ -65,3 +65,15 @@ impl DictConfig {
 		&self.words
 	}
 }
+
+pub trait ConfiguredDict {
+	type Error;
+
+	/// Load the dictionary from a configuration file. How it uses this
+	/// configuration may be up to the dictionary itself, but must make sense.
+	/// The configuration cannot assure it is used correctly.
+	fn from_config(cfg: DictConfig) -> Result<Self, Self::Error> where Self: Sized;
+
+	/// Save the dictionary according to it's configuration.
+	fn save(&self) -> Result<(), Self::Error>;
+}

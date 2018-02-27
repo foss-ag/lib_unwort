@@ -7,12 +7,48 @@
 
 use definable::Definable;
 
+/// Representation of a German grammatical gender.
+#[allow(missing_docs)]
+#[derive(Copy, Clone)]
+pub enum Gender {
+	None,
+	Masculine,
+	Feminine,
+	Neuter
+}
+
 /// Describes all parts that may or may not be known about a german word.
 pub struct Word {
 	/// The raw string that describes this word.
 	raw: String,
 	/// Contains the definition, if it is available
-	definition: Option<String>
+	definition: Option<String>,
+	/// The grammatical gender of the word. Some if it is known, also if it
+	/// does not have a gender (because it is not a noun)
+	gender: Option<Gender>
+}
+
+impl Word {
+	/// Create a new word from its String representation. Everything else is
+	/// set to unknown.
+	pub fn new<R: AsRef<str>>(raw: R) -> Word {
+		Word {
+			raw: raw.as_ref().to_string(),
+			definition: None,
+			gender: None
+		}
+	}
+
+	/// Get the gender of this word. None if the gender is unknown.
+	pub fn gender(&self) -> Option<Gender> {
+		self.gender
+	}
+
+	/// Once the gender is known, it can be known or changed. It cannot be
+	/// reset using this function.
+	pub fn set_gender(&mut self, gender: Gender) {
+		self.gender = Some(gender);
+	}
 }
 
 impl Definable for Word {

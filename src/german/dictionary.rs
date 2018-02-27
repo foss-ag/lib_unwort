@@ -7,24 +7,20 @@
 
 use std::path::Path;
 use std::io;
+use std::collections::HashMap;
 
 use is_dict::IsDict;
+use dict_config::*;
 use german::Word;
 
+/// German dictionary adhering to the rules and particularities of German.
 pub struct Dictionary {
-	
+	cfg: DictConfig,
+	words: HashMap<String, Word>
 }
 
 impl IsDict for Dictionary {
 	type W = Word;
-
-	fn from_file(path: &Path) -> io::Result<Self> {
-		unimplemented!();
-	}
-	
-	fn to_file(&self, path: &Path) -> io::Result<()> {
-		unimplemented!();
-	}
 
 	fn contains(&self, word: &str) -> bool {
 		unimplemented!();
@@ -39,6 +35,18 @@ impl IsDict for Dictionary {
 	}
 
 	fn add(&self, word: &Word) -> bool {
+		unimplemented!();
+	}
+}
+
+impl ConfiguredDict for Dictionary {
+	type Error = io::Error;
+
+	fn from_config(cfg: DictConfig) -> io::Result<Dictionary> {
+		unimplemented!();
+	}
+
+	fn save(&self) -> io::Result<()> {
 		unimplemented!();
 	}
 }

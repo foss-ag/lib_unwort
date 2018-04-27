@@ -12,6 +12,12 @@ use definable::Definable;
 /// Representation of a German grammatical gender.
 #[allow(missing_docs)]
 #[derive(Copy, Clone)]
+pub enum WordType {
+	Noun,
+	Verb,
+	Adjective
+}
+
 pub enum Gender {
 	None,
 	Masculine,
@@ -63,6 +69,8 @@ pub struct Word {
 	raw: String,
 	/// Contains the definition, if it is available
 	definition: Option<String>,
+	/// The type of the word. Some, if it is known
+	word_type: Option<WordType>,
 	/// The grammatical gender of the word. Some, if it is known, also if it
 	/// does not have a gender (because it is not a noun)
 	gender: Option<Gender>,
@@ -86,6 +94,7 @@ impl Word {
 		Word {
 			raw: raw.as_ref().to_string(),
 			definition: None,
+			word_type: None,
 			gender: None,
 			number: None,
 			case: None,
@@ -93,6 +102,10 @@ impl Word {
 			mood: None,
 			genera: None
 		}
+	}
+
+	pub fn word_type(&self) -> Option<WordType> {
+		self.word_type
 	}
 
 	/// Get the grammatical gender of a word. None, if the gender is unknown.
@@ -119,6 +132,10 @@ impl Word {
 
 	pub fn genera(&self) -> Option<Genera> {
 		self.genera
+	}
+
+	pub fn set_word_type(&mut self, word_type: WordType) {
+		self.word_type = Some(word_type);
 	}
 
 	/// Used to set the grammatical gender of a word. Can also be used to reset it.

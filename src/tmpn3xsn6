@@ -56,7 +56,7 @@ impl Parser {
                         }
                     }
 
-                    self.dict.push(word);
+                    self.d
                 } else {
                     // Break program execution because of invalid dictionary file (or just skip this entry)
                     unimplemented!();
@@ -89,26 +89,7 @@ impl Parser {
                 }
             },
             2 => {
-                match c {
-                    "s" => word.set_number(Number::Singular),
-                    "p" => word.set_number(Number::Plural),
-                }
-            },
-            3 => {
-                match c {
-                    "m" => word.set_gender(Gender::Masculine),
-                    "f" => word.set_gender(Gender::Feminine),
-                    "n" => word.set_gender(Gender::Neuter),
-                    "i" => word.set_mood(Mood::Indicative),
-                    "c" => word.set_mood(Mood::ConjunctiveOne),
-                    "j" => word.set_mood(Mood::ConjunctiveTwo),
-                }
-            },
-            4 => {
-                match c {
-                    "a" => word.set_genera(Genera:Active),
-                    "p" => word.set_genera(Genera::Passive),
-                }
+
             },
         }
     }

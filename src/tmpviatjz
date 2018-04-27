@@ -105,11 +105,8 @@ impl Parser {
                 }
             },
             4 => {
-                match c {
-                    "a" => word.set_genera(Genera:Active),
-                    "p" => word.set_genera(Genera::Passive),
-                }
-            },
+                m
+            }
         }
     }
 }

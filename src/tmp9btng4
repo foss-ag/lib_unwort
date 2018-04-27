@@ -99,17 +99,11 @@ impl Parser {
                     "m" => word.set_gender(Gender::Masculine),
                     "f" => word.set_gender(Gender::Feminine),
                     "n" => word.set_gender(Gender::Neuter),
-                    "i" => word.set_mood(Mood::Indicative),
-                    "c" => word.set_mood(Mood::ConjunctiveOne),
-                    "j" => word.set_mood(Mood::ConjunctiveTwo),
+                    "i" => word.set_,
+                    "c" => word.set_,
+                    "j"
                 }
-            },
-            4 => {
-                match c {
-                    "a" => word.set_genera(Genera:Active),
-                    "p" => word.set_genera(Genera::Passive),
-                }
-            },
+            }
         }
     }
 }

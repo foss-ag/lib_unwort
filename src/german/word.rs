@@ -9,7 +9,7 @@ use std::str::FromStr;
 
 use definable::Definable;
 
-/// Representation of a German grammatical gender.
+/// Representation of a German grammatical word type.
 #[allow(missing_docs)]
 #[derive(Copy, Clone)]
 pub enum WordType {
@@ -18,6 +18,7 @@ pub enum WordType {
 	Adjective
 }
 
+/// Representation of a German grammatical gender.
 pub enum Gender {
 	None,
 	Masculine,
@@ -32,6 +33,7 @@ pub enum Number {
 	Plural
 }
 
+/// Representation of a German grammatical case.
 pub enum Case {
 	None,
 	Nominative,
@@ -71,19 +73,17 @@ pub struct Word {
 	definition: Option<String>,
 	/// The type of the word. Some, if it is known
 	word_type: Option<WordType>,
-	/// The grammatical gender of the word. Some, if it is known, also if it
-	/// does not have a gender (because it is not a noun)
+	/// The grammatical gender of the word.
 	gender: Option<Gender>,
-	/// The grammatical number of the word. Some, if unknown or not necessary
-	/// for the word's type.
+	/// The grammatical number of the word.
 	number: Option<Number>,
-
+	/// The grammatical case of the word. 
 	case: Option<Case>,
-	
+	/// The grammatical person of the word.
 	person: Option<Person>,
-
+	/// the grammatical mood of the word.
 	mood: Option<Mood>,
-
+	/// The grammatical word of the genera.
 	genera: Option<Genera>
 }
 
@@ -104,6 +104,7 @@ impl Word {
 		}
 	}
 
+	/// Get the grammatical type of a word. None, if the type is unknown.
 	pub fn word_type(&self) -> Option<WordType> {
 		self.word_type
 	}
@@ -118,22 +119,27 @@ impl Word {
 		self.number
 	}
 
+	/// Get the grammatical case of a word. None, if the case is unknown.
 	pub fn case(&self) -> Option<Case> {
 		self.case
 	}
 
+	/// Get the grammatical person of a word. None, if the case is unknown.
 	pub fn person(&self) -> Option<Person> {
 		self.person
 	}
 
+	//7 Get the grammatical mood of a word. None, if the case is unknown.
 	pub fn mood(&self) -> Option<Mood> {
 		self.mood
 	}
 
+	/// Get the grammatical genera of a word. None, if the case is unknown.
 	pub fn genera(&self) -> Option<Genera> {
 		self.genera
 	}
 
+	/// Used to set the grammatical type of a word. Can also be used to reset it.
 	pub fn set_word_type(&mut self, word_type: WordType) {
 		self.word_type = Some(word_type);
 	}
@@ -148,18 +154,22 @@ impl Word {
 		self.number = Some(number);
 	}
 
+	/// Used to set the grammatical case of a word. Can also be used to reset it.
 	pub fn set_case(&mut self, case: Case) {
 		self.case = Some(case);
 	}
 
+	/// Used to set the grammatical person of a word. Can also be used to reset it.
 	pub fn set_person(&mut self, person: Person) {
 		self.person = Some(person);
 	}
 
+	/// Used to set the grammatical mood of a word. Can also be used to reset it.
 	pub fn set_mood(&mut self, mood: Mood) {
 		self.mood = Some(mood);
 	}
 
+	/// Used to set the grammatical genera of a word. Can also be used to reset it.
 	pub fn set_genera(&mut self, genera: Genera) {
 		self.genera = Some(genera);
 	}

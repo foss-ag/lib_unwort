@@ -11,13 +11,10 @@ n + n + s + m
     a
 ```
 
-n for noun
-+
-(n)ominative, (g)enitive, (d)ative, (a)ccusative
-+
-(s)ingular, (p)lural
-+
-(m)asculine, (f)eminine, (n)euter
+- n for noun +
+- (n)ominative, (g)enitive, (d)ative, (a)ccusative +
+- (s)ingular, (p)lural +
+- (m)asculine, (f)eminine, (n)euter
 
 ## Verbs
 
@@ -27,15 +24,11 @@ v + f + s + i + a
     t       j
 ```
 
-v for verb
-+
-(f)irst, (s)econd, (t)hird person
-+
-(s)ingular, (p)lural
-+
-(i)ndicative, (c)onjunctive 1, con(j)unctive 2
-+
-(a)ctive, (p)assive
+- v for verb +
+- (f)irst, (s)econd, (t)hird person +
+- (s)ingular, (p)lural +
+- (i)ndicative, (c)onjunctive 1, con(j)unctive 2 +
+- (a)ctive, (p)assive
 
 ## Adjectives
 
@@ -46,10 +39,7 @@ a + n + s + m
     a
 ```
 
-a for noun
-+
-(n)ominative, (g)enitive, (d)ative, (a)ccusative
-+
-(s)ingular, (p)lural
-+
-(m)asculine, (f)eminine, (n)euter
+- a for noun +
+- (n)ominative, (g)enitive, (d)ative, (a)ccusative +
+- (s)ingular, (p)lural +
+- (m)asculine, (f)eminine, (n)euter

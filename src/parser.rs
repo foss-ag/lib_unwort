@@ -13,7 +13,7 @@ pub struct Parser {
 }
 
 impl Parser {
-    fn parse(&self) -> bool {
+    pub fn parse(&self) -> bool {
         // Load the file to be parsed into a String.
         let file = File::open(self.file)?;
         let mut buf_reader = BufReader::new(file);
@@ -23,49 +23,50 @@ impl Parser {
 
         // Split string at dots
         let mut first = true;
-        let mut correct_header = false;
         let contents_split = contents.split(".");
 
         for part in contents_split {
             // If first part, check if part is correct dictionary file header
             if first {
-                correct_header = match part.as_ref() {
-                    "unwortdict" => true,
-                    _            => false,
+                match part.as_ref() {
+                    "unwortdict" => (),
+                    // If header is wrong, break parser execution and return false.
+                    _            => return false,
                 }
                 first = false;
             }
-            // If header is correct, parse file
-            if correct_header {
-                let part_split = part.split(",");
 
-                if part_split.len() == 2 {
-                    // TODO: take first split part as word
+            let part_split = part.split(",");
 
-                    let mut word = Word(&part_split[0]);
-                    let chars = part_split[1].chars();
-                    let mut pos: u8 = 0;
+            if part_split.len() == 2 {
+                // TODO: take first split part as word
 
-                    loop {
-                        match chars.next() {
-                            Some(c) => {
-                                validate_option(&mut word, &c, &pos);
-                                pos += 1;
-                            },
-                            None    => break,
-                        }
+                let mut word = Word(&part_split[0]);
+                let chars = part_split[1].chars();
+                let mut pos: u8 = 0;
+
+                loop {
+                    match chars.next() {
+                        Some(c) => {
+                            validate_option(&mut word, &c, &pos);
+                            pos += 1;
+                        },
+                        None    => break,
                     }
-
-                    self.dict.push(word);
-                } else {
-                    // Break program execution because of invalid dictionary file (or just skip this entry)
-                    unimplemented!();
                 }
+
+                self.dict.push(word);
             } else {
-                // Break program execution because of invalid dictionary file
+                // Break parser execution because of invalid dictionary file (or just skip this entry)
                 unimplemented!();
             }
+
+            return true;
         }
+    }
+
+    pub fn dict(&self) -> Vec<Word> {
+        self.dict
     }
 
     fn validate_option(word: &mut Word, c: &char, pos: &u8) {

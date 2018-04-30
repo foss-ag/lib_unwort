@@ -19,6 +19,7 @@ pub enum WordType {
 }
 
 /// Representation of a German grammatical gender.
+#[allow(missing_docs)]
 #[derive(Copy, Clone)]
 pub enum Gender {
 	None,
@@ -28,6 +29,7 @@ pub enum Gender {
 }
 
 /// Representation of a German grammatical number.
+#[allow(missing_docs)]
 #[derive(Copy, Clone)]
 pub enum Number {
 	None,
@@ -36,6 +38,7 @@ pub enum Number {
 }
 
 /// Representation of a German grammatical case.
+#[allow(missing_docs)]
 #[derive(Copy, Clone)]
 pub enum Case {
 	None,
@@ -46,6 +49,7 @@ pub enum Case {
 }
 
 // Representation of a German grammatical person.
+#[allow(missing_docs)]
 #[derive(Copy, Clone)]
 pub enum Person {
 	None,
@@ -55,6 +59,7 @@ pub enum Person {
 }
 
 /// Representation of a German grammatical mood.
+#[allow(missing_docs)]
 #[derive(Copy, Clone)]
 pub enum Mood {
 	None,
@@ -64,6 +69,7 @@ pub enum Mood {
 }
 
 /// Representation of a German grammatical genera.
+#[allow(missing_docs)]
 #[derive(Copy, Clone)]
 pub enum Genera {
 	None,
@@ -84,7 +90,7 @@ pub struct Word {
 	gender: Option<Gender>,
 	/// The grammatical number of the word.
 	number: Option<Number>,
-	/// The grammatical case of the word. 
+	/// The grammatical case of the word.
 	case: Option<Case>,
 	/// The grammatical person of the word.
 	person: Option<Person>,
@@ -113,37 +119,37 @@ impl Word {
 
 	/// Get the grammatical type of a word. None, if the type is unknown.
 	pub fn word_type(&self) -> Option<WordType> {
-		Some(self.word_type)
+		self.word_type
 	}
 
 	/// Get the grammatical gender of a word. None, if the gender is unknown.
 	pub fn gender(&self) -> Option<Gender> {
-		Some(self.gender)
+		self.gender
 	}
 
 	/// Get the grammatical number of a word. None, if the number is unknown.
 	pub fn number(&self) -> Option<Number> {
-		Some(self.number)
+		self.number
 	}
 
 	/// Get the grammatical case of a word. None, if the case is unknown.
 	pub fn case(&self) -> Option<Case> {
-		Some(self.case)
+		self.case
 	}
 
 	/// Get the grammatical person of a word. None, if the case is unknown.
 	pub fn person(&self) -> Option<Person> {
-		Some(self.person)
+		self.person
 	}
 
 	//7 Get the grammatical mood of a word. None, if the case is unknown.
 	pub fn mood(&self) -> Option<Mood> {
-		Some(self.mood)
+		self.mood
 	}
 
 	/// Get the grammatical genera of a word. None, if the case is unknown.
 	pub fn genera(&self) -> Option<Genera> {
-		Some(self.genera)
+		self.genera
 	}
 
 	/// Used to set the grammatical type of a word. Can also be used to reset it.

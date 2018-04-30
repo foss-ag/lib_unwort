@@ -30,5 +30,5 @@ pub trait IsDict {
 	/// Add the word to the dictionary. Works if the word is not yet explicitly
 	/// contained.
 	/// Returns true, if the word was entered, false otherwise.
-	fn add(&self, word: &Self::W) -> bool;
+	fn add(&mut self, word: &Self::W) -> bool;
 }

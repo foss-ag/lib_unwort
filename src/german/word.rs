@@ -5,7 +5,7 @@
 //
 // The License may be obtained under http://www.d-fsl.org.
 
-use std::str::FromStr;
+use std::ops::Deref;
 
 use definable::Definable;
 
@@ -20,6 +20,7 @@ pub enum Gender {
 }
 
 /// Describes all parts that may or may not be known about a german word.
+#[derive(Clone)]
 pub struct Word {
 	/// The raw string that describes this word.
 	raw: String,
@@ -65,5 +66,13 @@ impl Definable for Word {
 
 	fn set_definition(&mut self, definition: &String) {
 		self.definition = Some(definition.clone());
+	}
+}
+
+impl Deref for Word {
+	type Target = str;
+
+	fn deref(&self) -> &str {
+		&self.raw
 	}
 }

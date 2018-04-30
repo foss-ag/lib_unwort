@@ -19,6 +19,7 @@ pub enum WordType {
 }
 
 /// Representation of a German grammatical gender.
+#[derive(Copy, Clone)]
 pub enum Gender {
 	None,
 	Masculine,
@@ -27,6 +28,7 @@ pub enum Gender {
 }
 
 /// Representation of a German grammatical number.
+#[derive(Copy, Clone)]
 pub enum Number {
 	None,
 	Singular,
@@ -34,6 +36,7 @@ pub enum Number {
 }
 
 /// Representation of a German grammatical case.
+#[derive(Copy, Clone)]
 pub enum Case {
 	None,
 	Nominative,
@@ -43,6 +46,7 @@ pub enum Case {
 }
 
 // Representation of a German grammatical person.
+#[derive(Copy, Clone)]
 pub enum Person {
 	None,
 	First,
@@ -51,6 +55,7 @@ pub enum Person {
 }
 
 /// Representation of a German grammatical mood.
+#[derive(Copy, Clone)]
 pub enum Mood {
 	None,
 	Indicative,
@@ -59,6 +64,7 @@ pub enum Mood {
 }
 
 /// Representation of a German grammatical genera.
+#[derive(Copy, Clone)]
 pub enum Genera {
 	None,
 	Active,
